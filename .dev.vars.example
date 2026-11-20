@@ -1,0 +1,5 @@
+# Copia este archivo como .dev.vars (no se sube a git) y pega tu clave.
+# Groq: se crea en https://console.groq.com/keys
+GROQ_API_KEY="gsk_..."
+# Alternativa: si no hay clave de Groq, se usa Claude (https://console.anthropic.com → API Keys)
+# ANTHROPIC_API_KEY="sk-ant-..."

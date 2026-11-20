@@ -1,0 +1,1764 @@
+/* Tokens. Cobalt and amber come from the hero film: the threads and the one warm node. */
+:root {
+  --ink: #0e1419;
+  --ink-soft: #1b232b;
+  --paper: #f3f4f1;
+  --paper-2: #e8eae5;
+  --text: #15191c;
+  --muted: #5d656b;
+  --line: #d3d7d1;
+  --cobalt: #2f54ff;
+  --amber: #f2a33a;
+  --on-dark: #eef1f4;
+  --on-dark-muted: #9aa6b1;
+
+  --gutter: clamp(2.5rem, 7vw, 7rem);
+  --pad: clamp(1.25rem, 4vw, 3.5rem);
+  --max: 76rem;
+
+  color-scheme: light;
+  background: var(--paper);
+  color: var(--text);
+  font-family: 'Archivo', system-ui, sans-serif;
+  font-size: 1.0625rem;
+  font-variation-settings: 'wdth' 100;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--cobalt);
+  color: #fff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--cobalt);
+  color: #fff;
+  border-radius: 999px;
+  translate: 0 -200%;
+}
+
+.skip:focus {
+  translate: 0 0;
+}
+
+.mask {
+  display: block;
+  overflow: hidden;
+  /* room for descenders and the width animation */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.mask > span {
+  display: block;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.9rem;
+  padding: 0 1.4rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+
+.btn-solid {
+  background: var(--cobalt);
+  color: #fff;
+}
+
+.btn-solid:hover {
+  background: #1f3fe0;
+}
+
+.btn-ghost {
+  border: 1px solid rgb(238 241 244 / 0.35);
+  color: var(--on-dark);
+}
+
+.btn-ghost:hover {
+  border-color: var(--on-dark);
+  background: rgb(238 241 244 / 0.08);
+}
+
+.btn-line {
+  border: 1px solid var(--line);
+}
+
+.btn-line:hover {
+  border-color: var(--text);
+}
+
+/* ---------- nav ---------- */
+
+.progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  height: 2px;
+  background: var(--cobalt);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem var(--pad);
+  /* Nearly opaque instead of a backdrop blur: blurring the page under a fixed bar on
+     every scroll frame is one of the most expensive things a browser can be asked to do. */
+  background: rgb(243 244 241 / 0.96);
+  border-bottom: 1px solid rgb(21 25 28 / 0.08);
+  transition: background 0.35s, color 0.35s, border-color 0.35s;
+}
+
+.nav.is-dark {
+  background: transparent;
+  border-color: transparent;
+  color: var(--on-dark);
+}
+
+.nav-name {
+  white-space: nowrap;
+  font-weight: 700;
+  font-variation-settings: 'wdth' 118;
+  letter-spacing: -0.01em;
+}
+
+.nav nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 2.4vw, 2rem);
+  font-size: 0.92rem;
+}
+
+.nav nav a {
+  position: relative;
+}
+
+.nav nav a::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -0.25rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s;
+}
+
+.nav nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-lang {
+  min-width: 2.6rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.nav-lang:hover {
+  opacity: 1;
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--on-dark);
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% 50%;
+  transform-origin: 70% 50%;
+  will-change: transform;
+}
+
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  /* Its opacity is scrubbed on scroll: without its own layer the browser repaints a
+     full-screen gradient every frame, which is what made scrolling past the hero stutter. */
+  will-change: opacity;
+  background:
+    linear-gradient(90deg, rgb(14 20 25 / 0.94) 0%, rgb(14 20 25 / 0.7) 45%, rgb(14 20 25 / 0) 80%),
+    linear-gradient(0deg, rgb(14 20 25 / 0.85) 0%, rgb(14 20 25 / 0) 45%);
+  opacity: 0.85;
+}
+
+.hero-inner {
+  position: relative;
+  width: 100%;
+  max-width: calc(var(--max) + 2 * var(--pad));
+  margin-inline: auto;
+  padding: 7rem var(--pad) clamp(5.5rem, 12vh, 7.5rem);
+  will-change: transform;
+}
+
+.hero-role {
+  margin-bottom: 1.25rem;
+  color: var(--on-dark-muted);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+}
+
+.hero-name {
+  --w: 125;
+  font-size: clamp(3.6rem, 12.5vw, 12rem);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+}
+
+.hero-line {
+  font-variation-settings: 'wdth' var(--w);
+}
+
+.hero-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+  margin-top: clamp(1.75rem, 4vh, 3rem);
+}
+
+.hero-summary {
+  max-width: 30rem;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  line-height: 1.45;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hero-place {
+  position: absolute;
+  top: 50%;
+  right: var(--pad);
+  color: var(--on-dark-muted);
+  font-size: 0.85rem;
+  writing-mode: vertical-rl;
+  translate: 0 -50%;
+}
+
+/* ---------- flow line ---------- */
+
+.flow {
+  position: relative;
+  max-width: calc(var(--max) + var(--gutter) + 2 * var(--pad));
+  margin-inline: auto;
+  padding: 0 var(--pad) 0 calc(var(--pad) + var(--gutter));
+}
+
+.flow-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--pad) + 0.55rem);
+  width: 2px;
+  background: var(--line);
+}
+
+.flow-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(var(--cobalt) 85%, var(--amber));
+  transform-origin: top;
+}
+
+.block {
+  position: relative;
+  padding-block: clamp(4rem, 10vh, 7rem);
+}
+
+.node {
+  position: absolute;
+  top: calc(clamp(4rem, 10vh, 7rem) + 0.85rem);
+  left: calc(-1 * var(--gutter) + 0.55rem + 1px);
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  translate: -50% 0;
+  transition: border-color 0.4s, background 0.4s, box-shadow 0.4s;
+}
+
+.node.is-on {
+  border-color: var(--cobalt);
+  background: var(--cobalt);
+  box-shadow: 0 0 0 6px rgb(47 84 255 / 0.15);
+}
+
+.heading {
+  margin-bottom: clamp(2rem, 5vh, 3.5rem);
+  font-size: clamp(2.2rem, 5.2vw, 4.4rem);
+  font-weight: 750;
+  font-variation-settings: 'wdth' 112;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.lede {
+  max-width: 38rem;
+  margin: -1rem 0 clamp(2.5rem, 6vh, 4rem);
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tags li {
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+/* 8-bit Cristian, riding the flow line */
+.buddy {
+  --px: 4px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 5;
+  width: calc(12 * var(--px));
+  height: calc(20 * var(--px));
+  transform: translate(-50%, 0);
+  will-change: transform;
+}
+
+.buddy-sprite {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.buddy-sprite.is-hopping {
+  animation: hop 0.42s steps(6) 1;
+}
+
+@keyframes hop {
+  0%, 100% { translate: 0 0; }
+  40% { translate: 0 calc(-3 * var(--px)); }
+  70% { translate: 0 calc(-1 * var(--px)); }
+}
+
+.buddy-bubble {
+  position: absolute;
+  bottom: calc(100% + 0.6rem);
+  left: calc(-0.25 * var(--px));
+  padding: 0.35rem 0.6rem;
+  border: 2px solid var(--text);
+  background: var(--paper);
+  box-shadow: 3px 3px 0 var(--text);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  animation: bubble-in 0.2s steps(3) both;
+}
+
+.buddy-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 1rem;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--text);
+  border-top: 0;
+  border-left: 0;
+  background: var(--paper);
+  translate: 0 -4px;
+  rotate: 45deg;
+}
+
+@keyframes bubble-in {
+  from { opacity: 0; translate: 0 6px; }
+}
+
+/* ---------- about ---------- */
+
+.about-side {
+  display: grid;
+  gap: 2rem;
+}
+
+/* The slot keeps the layout; the figure inside moves and shrinks toward the flow line. */
+.avatar3d-slot {
+  position: relative;
+  width: min(100%, 22rem);
+  aspect-ratio: 4 / 5;
+  justify-self: center;
+}
+
+.avatar3d {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  margin: 0;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+
+.avatar3d-poster,
+.avatar3d-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.avatar3d-poster {
+  object-fit: contain;
+  transition: opacity 0.4s;
+}
+
+.avatar3d-canvas {
+  opacity: 0;
+  image-rendering: pixelated;
+  transition: opacity 0.4s;
+}
+
+.avatar3d.is-ready .avatar3d-canvas {
+  opacity: 1;
+}
+
+.avatar3d.is-ready .avatar3d-poster {
+  opacity: 0;
+}
+
+.avatar3d-bubble {
+  position: absolute;
+  top: 6%;
+  right: -0.5rem;
+  margin: 0;
+  padding: 0.45rem 0.75rem;
+  border: 2px solid var(--text);
+  background: var(--paper);
+  box-shadow: 3px 3px 0 var(--text);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  animation: bubble-in 0.25s steps(3) 0.6s both;
+  transition: opacity 0.2s steps(2), translate 0.2s steps(2);
+}
+
+.avatar3d-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 1.1rem;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--text);
+  border-top: 0;
+  border-left: 0;
+  background: var(--paper);
+  translate: 0 -4px;
+  rotate: 45deg;
+}
+
+.avatar3d-bubble.is-gone {
+  opacity: 0;
+  translate: 0 6px;
+}
+
+.buddy {
+  transition: opacity 0.15s;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(14rem, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: end;
+}
+
+.about-text .word {
+  transition: opacity 0.35s;
+}
+
+.about-text.is-scrubbing .word:not(.is-lit) {
+  opacity: 0.14;
+}
+
+.about-text {
+  max-width: 40rem;
+  font-size: clamp(1.35rem, 2.3vw, 1.95rem);
+  line-height: 1.38;
+  letter-spacing: -0.01em;
+}
+
+.facts {
+  display: grid;
+  gap: 1.1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.facts dt {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.facts dd {
+  font-weight: 500;
+}
+
+/* ---------- what I do ---------- */
+
+.what-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.service h3 {
+  margin: 2rem 0 0.6rem;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-weight: 650;
+  font-variation-settings: 'wdth' 108;
+  line-height: 1.2;
+}
+
+.service > p {
+  max-width: 34rem;
+  margin-bottom: 1.25rem;
+  color: var(--muted);
+}
+
+/* A three-step pipeline: the connectors light up in order, then a pulse keeps travelling. */
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: 1rem;
+  background: var(--ink);
+  color: var(--on-dark);
+}
+
+.pipe-node {
+  position: relative;
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid rgb(238 241 244 / 0.16);
+  border-radius: 0.6rem;
+  background: var(--ink-soft);
+  transition: border-color 0.5s, box-shadow 0.5s;
+}
+
+.pipe-node strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.pipe-node span {
+  color: var(--on-dark-muted);
+  font-size: 0.78rem;
+}
+
+.pipe-node + .pipe-node::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: clamp(1.25rem, 3vw, 2.25rem);
+  height: 2px;
+  background: linear-gradient(90deg, var(--cobalt), var(--cobalt)) left / 0% 100% no-repeat rgb(238 241 244 / 0.16);
+  transition: background-size 0.5s;
+}
+
+.pipe-node + .pipe-node::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 3px);
+  right: calc(100% + clamp(1.25rem, 3vw, 2.25rem) - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 10px var(--amber);
+  opacity: 0;
+}
+
+.is-running .pipe-node {
+  border-color: rgb(47 84 255 / 0.7);
+  box-shadow: 0 0 24px rgb(47 84 255 / 0.18);
+}
+
+.is-running .pipe-node:nth-child(2) { transition-delay: 0.45s; }
+.is-running .pipe-node:nth-child(3) { transition-delay: 0.9s; }
+
+.is-running .pipe-node + .pipe-node::before {
+  background-size: 100% 100%;
+}
+
+.is-running .pipe-node:nth-child(2)::before { transition-delay: 0.2s; }
+.is-running .pipe-node:nth-child(3)::before { transition-delay: 0.65s; }
+
+.is-running .pipe-node + .pipe-node::after {
+  animation: pulse 2.4s 1.4s ease-in-out infinite;
+}
+
+.is-running .pipe-node:nth-child(3)::after {
+  animation-delay: 2.6s;
+}
+
+@keyframes pulse {
+  0% { opacity: 0; translate: 0 0; }
+  15% { opacity: 1; }
+  45% { opacity: 1; translate: clamp(1.25rem, 3vw, 2.25rem) 0; }
+  55%, 100% { opacity: 0; translate: clamp(1.25rem, 3vw, 2.25rem) 0; }
+}
+
+/* ---------- projects ---------- */
+
+.projects {
+  display: grid;
+  gap: clamp(4rem, 10vh, 7rem);
+}
+
+.project {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.project:nth-child(even) .shot {
+  order: 2;
+}
+
+.project.is-featured {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.project.is-featured .project-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.75rem 3rem;
+  align-items: start;
+}
+
+.project.is-featured .project-body h3 {
+  grid-row: span 2;
+}
+
+.shot {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--paper-2);
+  aspect-ratio: 16 / 10;
+  box-shadow: 0 30px 60px -30px rgb(14 20 25 / 0.35);
+}
+
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.project-body h3 {
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  font-variation-settings: 'wdth' 110;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.project-body > p {
+  max-width: 32rem;
+  margin-bottom: 1.25rem;
+  color: var(--muted);
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.project.is-featured .project-links {
+  margin-top: 0.5rem;
+}
+
+/* ---------- career ---------- */
+
+.timeline {
+  --line: 1;
+  position: relative;
+  display: grid;
+  gap: clamp(2rem, 5vh, 3rem);
+  max-width: 54rem;
+  padding-left: 2rem;
+}
+
+.timeline::before,
+.timeline::after {
+  content: '';
+  position: absolute;
+  top: 0.55rem;
+  bottom: 0.55rem;
+  left: 0.3rem;
+  width: 1px;
+  background: var(--line);
+}
+
+.timeline::after {
+  width: 2px;
+  left: calc(0.3rem - 0.5px);
+  background: var(--text);
+  transform-origin: top;
+  transform: scaleY(var(--line));
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 0.5rem 2rem;
+}
+
+.step::before {
+  content: '';
+  position: absolute;
+  top: 0.45rem;
+  left: calc(-2rem + 0.3rem - 4px);
+  z-index: 1;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--text);
+}
+
+.step.is-now::before {
+  background: var(--amber);
+  box-shadow: 0 0 0 5px rgb(242 163 58 / 0.25);
+}
+
+.step-when {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.is-now .step-when {
+  color: #b86e0c;
+  font-weight: 600;
+}
+
+.step h3 {
+  font-size: 1.25rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.step-place {
+  margin-bottom: 0.35rem;
+  color: var(--cobalt);
+  font-weight: 500;
+}
+
+.step p:last-child {
+  max-width: 36rem;
+  color: var(--muted);
+}
+
+/* ---------- stack ---------- */
+
+.stack-grid {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.stack-group {
+  display: grid;
+  grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr);
+  gap: 0.75rem 2rem;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.stack-group dt {
+  font-weight: 600;
+}
+
+.logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.logo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  background: var(--paper);
+  color: var(--text);
+  transition: background 0.25s, color 0.25s, border-color 0.25s, translate 0.25s;
+}
+
+.logo svg {
+  width: 1.65rem;
+  height: 1.65rem;
+  fill: currentColor;
+}
+
+.logo-word {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.logo:hover,
+.logo:focus-visible {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--brand);
+  translate: 0 -3px;
+}
+
+.logo-name {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 50%;
+  z-index: 2;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.35rem;
+  background: var(--ink);
+  color: var(--on-dark);
+  font-size: 0.72rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  translate: -50% 4px;
+  transition: opacity 0.2s, translate 0.2s;
+}
+
+.logo:hover .logo-name,
+.logo:focus-visible .logo-name {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+/* Touch screens have no hover, so the name sits under each logo. */
+@media (hover: none) {
+  .logo {
+    gap: 0.3rem;
+    width: auto;
+    min-width: 4.4rem;
+    height: auto;
+    padding: 0.7rem 0.5rem 0.5rem;
+  }
+
+  .logo-name {
+    position: static;
+    padding: 0;
+    background: none;
+    color: var(--muted);
+    opacity: 1;
+    translate: none;
+  }
+}
+
+/* ---------- contact ---------- */
+
+.contact {
+  padding: clamp(6rem, 16vh, 10rem) var(--pad) 2.5rem;
+  background: var(--ink);
+  color: var(--on-dark);
+}
+
+.contact > * {
+  max-width: var(--max);
+  margin-inline: auto;
+}
+
+.contact-title {
+  font-size: clamp(2.2rem, 5.6vw, 5rem);
+  font-weight: 750;
+  font-variation-settings: 'wdth' 112;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.contact-text {
+  margin-top: 1.25rem;
+  color: var(--on-dark-muted);
+  font-size: 1.15rem;
+}
+
+.contact-mail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: clamp(2.5rem, 6vh, 4rem);
+  padding-bottom: clamp(4rem, 10vh, 6rem);
+}
+
+.contact-mail a {
+  font-size: clamp(1.15rem, 3vw, 2.4rem);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  background: linear-gradient(currentColor, currentColor) left bottom / 0% 2px no-repeat;
+  transition: background-size 0.4s;
+}
+
+.contact-mail a:hover {
+  background-size: 100% 2px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgb(238 241 244 / 0.14);
+  color: var(--on-dark-muted);
+  font-size: 0.92rem;
+}
+
+.contact-grid p:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+
+.contact-grid a {
+  color: var(--on-dark);
+}
+
+.contact-grid a:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.contact-grid p:last-child {
+  text-align: right;
+}
+
+/* ---------- chat assistant ---------- */
+
+.chat-launcher {
+  position: fixed;
+  right: var(--pad);
+  bottom: 1.25rem;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 1.1rem 0.35rem 0.35rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--on-dark);
+  font-size: 0.92rem;
+  font-weight: 600;
+  box-shadow: 0 12px 30px -12px rgb(14 20 25 / 0.55), 0 0 0 1px rgb(238 241 244 / 0.12);
+  transition: translate 0.25s, opacity 0.3s, scale 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.25s;
+}
+
+.chat-launcher:hover {
+  background: #1a2530;
+  translate: 0 -2px;
+}
+
+.chat-launcher.is-hidden {
+  opacity: 0;
+  scale: 0.6;
+  pointer-events: none;
+}
+
+.avatar-clip {
+  position: relative;
+  display: block;
+  flex: none;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #e8eae5;
+}
+
+.avatar-clip img,
+.avatar-clip video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+.avatar-clip video {
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.avatar-clip video.is-active {
+  opacity: 1;
+}
+
+.chat-launcher-avatar {
+  width: 3rem;
+  height: 3rem;
+}
+
+.msg {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.msg-avatar {
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: #e8eae5;
+  image-rendering: pixelated;
+}
+
+.msg .bubble {
+  max-width: calc(88% - 2.25rem);
+}
+
+.bubble.is-typing::after {
+  content: '';
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 0.1em;
+  vertical-align: -0.15em;
+  background: currentColor;
+  opacity: 0.6;
+  animation: blink-dot 0.7s steps(1) infinite;
+}
+
+.bubble.is-typing {
+  cursor: pointer;
+}
+
+.chat-nudge {
+  position: fixed;
+  right: var(--pad);
+  bottom: 5rem;
+  z-index: 70;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+  max-width: 16rem;
+  padding: 0.65rem 0.5rem 0.65rem 0.9rem;
+  border-radius: 1rem 1rem 0.3rem 1rem;
+  background: var(--paper);
+  color: var(--text);
+  box-shadow: 0 14px 34px -14px rgb(14 20 25 / 0.45), 0 0 0 1px rgb(14 20 25 / 0.08);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  animation: chat-in 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-origin: bottom right;
+}
+
+.chat-nudge-text {
+  text-align: left;
+}
+
+.chat-nudge-close {
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  flex: none;
+  border-radius: 50%;
+  color: var(--muted);
+}
+
+.chat-nudge-close:hover {
+  background: var(--paper-2);
+}
+
+.chat-nudge-close svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.chat {
+  /* Where the launcher's avatar sits: the panel grows out of it and shrinks back into it. */
+  --origin: calc(100% - 1.85rem) calc(100% - 1.85rem);
+  position: fixed;
+  right: var(--pad);
+  bottom: 1.25rem;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  width: min(27rem, calc(100vw - 2 * var(--pad)));
+  height: min(46rem, calc(100svh - 2.5rem));
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: var(--paper);
+  color: var(--text);
+  box-shadow: 0 30px 70px -20px rgb(14 20 25 / 0.5), 0 0 0 1px rgb(14 20 25 / 0.08);
+  /* The shadow fades in after the reveal, since clip-path would cut it off meanwhile. */
+  animation:
+    chat-reveal 0.6s cubic-bezier(0.65, 0, 0.35, 1) both,
+    chat-shadow 0.3s 0.5s both;
+}
+
+.chat[data-state='closing'] {
+  pointer-events: none;
+  animation: chat-collapse 0.34s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@keyframes chat-reveal {
+  from { clip-path: circle(1.5rem at var(--origin)); }
+  to { clip-path: circle(150% at var(--origin)); }
+}
+
+@keyframes chat-collapse {
+  from { clip-path: circle(150% at var(--origin)); opacity: 1; }
+  70% { opacity: 1; }
+  to { clip-path: circle(1.5rem at var(--origin)); opacity: 0; }
+}
+
+@keyframes chat-shadow {
+  from { box-shadow: 0 0 0 0 transparent; }
+}
+
+/* Contents arrive in order once the panel has room: title, then conversation, then input. */
+.chat-stage h2,
+.stage-sub,
+.chat-status {
+  animation: rise 0.45s 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.chat-log,
+.chat-form,
+.chat-note {
+  animation: rise 0.45s 0.38s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.chat[data-state='closing'] .chat-stage > *,
+.chat[data-state='closing'] .chat-log,
+.chat[data-state='closing'] .chat-form,
+.chat[data-state='closing'] .chat-note {
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+@keyframes rise {
+  from { opacity: 0; translate: 0 10px; }
+}
+
+@keyframes chat-in {
+  from { opacity: 0; scale: 0.92; translate: 0 12px; }
+}
+
+.chat-stage {
+  --ring: rgb(238 241 244 / 0.45);
+  --glow: rgb(47 84 255 / 0.3);
+  position: relative;
+  display: grid;
+  flex: none;
+  justify-items: center;
+  padding: 1.6rem 1.25rem 1.15rem;
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--on-dark);
+  text-align: center;
+  isolation: isolate;
+}
+
+.chat-stage[data-mood='thinking'] {
+  --ring: var(--amber);
+  --glow: rgb(242 163 58 / 0.32);
+}
+
+.chat-stage[data-mood='talking'] {
+  --ring: var(--cobalt);
+  --glow: rgb(47 84 255 / 0.55);
+}
+
+/* A soft spotlight behind the avatar that takes the colour of its mood. */
+.chat-stage::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  z-index: -1;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow), transparent 65%);
+  translate: -50% 0;
+  transition: background 0.5s;
+  animation: spotlight 4s ease-in-out infinite;
+}
+
+@keyframes spotlight {
+  50% { scale: 1.12; opacity: 0.8; }
+}
+
+.stage-avatar {
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+  margin-bottom: 0.85rem;
+  animation: avatar-pop 0.7s 0.15s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+  transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.chat.is-compact .stage-avatar {
+  width: 6.5rem;
+  height: 6.5rem;
+  margin-bottom: 0.6rem;
+}
+
+@keyframes avatar-pop {
+  from { opacity: 0; scale: 0.4; }
+}
+
+.stage-avatar .avatar-clip {
+  position: absolute;
+  inset: 6px;
+  box-shadow: 0 10px 30px -8px rgb(0 0 0 / 0.6);
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.chat-stage[data-mood='talking'] .stage-avatar .avatar-clip {
+  animation: talk-bob 0.5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  50% { scale: 1.025; }
+}
+
+@keyframes talk-bob {
+  50% { translate: 0 -2px; }
+}
+
+/* The ring around the avatar: slow in idle, fast amber while thinking, blue while talking. */
+.stage-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(var(--ring), transparent 35%, var(--ring) 55%, transparent 90%, var(--ring));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+  animation: ring-spin 7s linear infinite;
+  transition: background 0.4s;
+}
+
+.chat-stage[data-mood='thinking'] .stage-ring {
+  animation-duration: 1.1s;
+}
+
+.chat-stage[data-mood='talking'] .stage-ring {
+  animation-duration: 2.4s;
+  filter: drop-shadow(0 0 6px var(--cobalt));
+}
+
+@keyframes ring-spin {
+  to { rotate: 1turn; }
+}
+
+.chat-stage h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-variation-settings: 'wdth' 112;
+  line-height: 1.2;
+}
+
+.stage-sub {
+  max-width: 19rem;
+  margin-top: 0.2rem;
+  color: var(--on-dark-muted);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  transition: opacity 0.3s;
+}
+
+.chat.is-compact .stage-sub {
+  display: none;
+}
+
+.chat-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.7rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: rgb(238 241 244 / 0.08);
+  font-size: 0.78rem;
+}
+
+.chat-status i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #3fbf6a;
+}
+
+.chat-status[data-mood='thinking'] i {
+  background: var(--amber);
+  animation: blink-dot 0.9s infinite;
+}
+
+.chat-status[data-mood='talking'] i {
+  background: var(--cobalt);
+}
+
+@keyframes blink-dot {
+  50% { opacity: 0.3; }
+}
+
+/* Little voice meter, only while the avatar talks. */
+.voice {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  height: 0.8rem;
+}
+
+.chat-status[data-mood='talking'] .voice {
+  display: inline-flex;
+}
+
+.voice b {
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--cobalt);
+  animation: voice 0.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.voice b:nth-child(2) { animation-delay: 0.12s; }
+.voice b:nth-child(3) { animation-delay: 0.24s; }
+.voice b:nth-child(4) { animation-delay: 0.08s; }
+.voice b:nth-child(5) { animation-delay: 0.2s; }
+
+@keyframes voice {
+  0%, 100% { scale: 1 0.3; }
+  50% { scale: 1 1; }
+}
+
+.chat-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+}
+
+.chat-close:hover {
+  background: rgb(238 241 244 / 0.1);
+}
+
+.chat-close svg,
+.chat-send svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chat-log {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.6rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1rem;
+}
+
+.bubble {
+  max-width: 88%;
+  padding: 0.6rem 0.85rem;
+  border-radius: 1rem;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.bubble.is-bot {
+  align-self: flex-start;
+  border-bottom-left-radius: 0.3rem;
+  background: var(--paper-2);
+}
+
+.bubble.is-user {
+  align-self: flex-end;
+  border-bottom-right-radius: 0.3rem;
+  background: var(--cobalt);
+  color: #fff;
+}
+
+.bubble a {
+  color: var(--cobalt);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.is-thinking {
+  display: flex;
+  gap: 0.3rem;
+  padding-block: 0.85rem;
+}
+
+.is-thinking i {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--muted);
+  animation: thinking 1.1s infinite ease-in-out;
+}
+
+.is-thinking i:nth-of-type(2) { animation-delay: 0.15s; }
+.is-thinking i:nth-of-type(3) { animation-delay: 0.3s; }
+
+@keyframes thinking {
+  0%, 60%, 100% { opacity: 0.3; translate: 0 0; }
+  30% { opacity: 1; translate: 0 -3px; }
+}
+
+.chat-error {
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #e3b4a8;
+  border-radius: 0.75rem;
+  background: #fbefeb;
+  color: #8a2e17;
+  font-size: 0.88rem;
+}
+
+.chat-error a {
+  text-decoration: underline;
+}
+
+.chat-suggestions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.chat-suggestions button {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 0.85rem;
+  text-align: left;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.chat-suggestions button:hover {
+  border-color: var(--cobalt);
+  color: var(--cobalt);
+}
+
+.chat-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin: 0 0.75rem;
+  padding: 0.4rem 0.4rem 0.4rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 1.4rem;
+  background: #fff;
+}
+
+.chat-form:focus-within {
+  border-color: var(--cobalt);
+}
+
+.chat-form textarea {
+  flex: 1;
+  max-height: 7rem;
+  padding: 0.45rem 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  resize: none;
+  field-sizing: content;
+}
+
+.chat-form textarea:focus {
+  outline: none;
+}
+
+.chat-send {
+  display: grid;
+  place-items: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--cobalt);
+  color: #fff;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.chat-send:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.chat-note {
+  padding: 0.5rem 1rem 0.75rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .chat {
+    --origin: calc(100% - 2.85rem) calc(100% - 2.85rem);
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100svh;
+    border-radius: 0;
+  }
+
+  .stage-avatar {
+    width: 7.5rem;
+    height: 7.5rem;
+  }
+
+  .chat.is-compact .stage-avatar {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .chat-launcher {
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 860px) {
+  .about-grid,
+  .what-grid,
+  .project,
+  .project.is-featured .project-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project:nth-child(even) .shot {
+    order: 0;
+  }
+
+  .project.is-featured .project-body h3 {
+    grid-row: auto;
+  }
+
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-grid p:last-child {
+    text-align: left;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 2.25rem;
+    font-size: 1rem;
+  }
+
+  .buddy {
+    --px: 3px;
+  }
+
+  .avatar3d-slot {
+    width: min(70%, 15rem);
+  }
+
+  .avatar3d-bubble {
+    right: -1.5rem;
+    font-size: 0.85rem;
+  }
+
+  /* No room beside the text on phones: he still hops, but keeps quiet. */
+  .buddy-bubble {
+    display: none;
+  }
+
+  .nav nav a:nth-child(1),
+  .nav nav a:nth-child(3) {
+    display: none;
+  }
+
+  .hero-place {
+    display: none;
+  }
+
+  .hero-shade {
+    background: linear-gradient(0deg, rgb(14 20 25 / 0.95) 10%, rgb(14 20 25 / 0.45) 60%, rgb(14 20 25 / 0.2));
+  }
+
+  .hero-video {
+    object-position: 78% 50%;
+  }
+
+  .pipeline {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pipe-node + .pipe-node::before {
+    top: auto;
+    bottom: 100%;
+    right: auto;
+    left: 1.4rem;
+    width: 2px;
+    height: clamp(1.25rem, 3vw, 2.25rem);
+    background: linear-gradient(var(--cobalt), var(--cobalt)) top / 100% 0% no-repeat rgb(238 241 244 / 0.16);
+  }
+
+  .is-running .pipe-node + .pipe-node::before {
+    background-size: 100% 100%;
+  }
+
+  .pipe-node + .pipe-node::after {
+    display: none;
+  }
+
+  .step,
+  .stack-group {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

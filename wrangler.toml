@@ -1,0 +1,5 @@
+# Cloudflare Pages: the built site is in dist/ and functions/ holds the /api/chat endpoint.
+# The API key is NOT set here: add it as a secret (see README, "Asistente de IA").
+name = "portafolio-cristian"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-11-01"
